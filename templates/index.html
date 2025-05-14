@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Support Service Publisher</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <!--header>
+        <img src="./static/assets/logo.jpg" alt="Logo" class="logo">
+      </header-->
+
+      <div class="navbar">
+        <a href="#">
+            <img src="./static/assets/Credential-Engine logo 2.webp" alt="Logo" class="logo">
+        </a>
+        <a href="https://credentialengine.org/">Home</a>
+        <a href="https://credentialengine.org/about-us/">About</a>
+        <!--a href="#">Publish</a-->
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Publish</a>
+            <div class="dropdown-content">
+              <a href="#">API Upload</a>
+              <a href="https://sandbox.credentialengine.org/publisher/bulkupload/supportservices">Bulk Upload</a>
+            </div>
+          </div>
+        <!--a href="#">Contact</a-->
+      </div>
+    
+      <div class="content">
+        <div class="container">
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul id="flash-messages" class="messages">
+                {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            <div class="form-container">
+                
+            <form action="/scrape" method="post" id="scrapeForm">
+                <h4>University Support Service Publisher</h4>
+                <label for="domain">Enter school domain:</label>
+                <input type="text" id="domain" name="domain" placeholder="e.g., schoolexample.edu" class="custom-input" value="{{ request.form.get('domain', '') }}">
+                <br>
+                <label for="publishMethod">Select publish method:</label>
+                <select id="publishMethod" name="publishMethod" class="custom-input">
+                    <option value="api" {% if request.form.get('publishMethod') == 'api' %}selected{% endif %}>API Upload</option>
+                    <option value="bulk" {% if request.form.get('publishMethod') == 'bulk' %}selected{% endif %}>Bulk Upload Template</option>
+                </select>
+                <br>
+                <button type="submit">Let's discover!</button>
+            </form>
+            <div class="loading-spinner" id="loadingSpinner"></div>
+        
+        </div>
+            {% if ctdl_json %}
+            <div id="results">
+                <div class="results-header">
+                    <h2>Extracted Support Services in CTDL JSON Format</h2>
+                    <div id="downloadButtonContainer" style="display: {% if publish_method == 'bulk' %}block{% else %}none{% endif %};">
+                        <a href="{{ url_for('download_csv') }}" download>
+                            <button>Download CSV</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="code-snippet">
+                    <pre id="json-content">{{ ctdl_json }}</pre>
+                    <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                </div>
+            </div>
+            
+            <!-- Store JSON in a hidden script tag for proper extraction -->
+            <script id="json-data" type="application/json">
+                {{ ctdl_json | tojson | safe }}
+            </script>
+            </div>
+            {% endif %}
+        </div>
+        <br>
+      </div>
+    
+    
+
+    <footer>
+        &copy; <span id="year"></span> Credential Engine. All rights reserved.
+      </footer>
+    <script>
+        // Copy JSON data to clipboard
+        function copyToClipboard() {
+            const jsonText = document.getElementById('json-content').textContent;
+            navigator.clipboard.writeText(jsonText).then(() => {
+                alert('CTDL format copied!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Show loading spinner when form is submitted
+        document.getElementById('scrapeForm').addEventListener('submit', function() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+        });
+
+        // Auto-clear flash messages after 5 seconds
+        setTimeout(function () {
+            const flashMessages = document.getElementById('flash-messages');
+            if (flashMessages) {
+                flashMessages.innerHTML = '';
+            }
+        }, 5000);
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
