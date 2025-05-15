@@ -15,7 +15,9 @@ app.secret_key = os.getenv('SECRET_KEY')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Path to the uploaded files
+# Set path to uploads folder
+if not os.path.exists(os.path.join(BASE_DIR, 'uploads')):
+    os.makedirs(os.path.join(BASE_DIR, 'uploads'))
 app.config["UPLOAD_FOLDER"] = os.path.join(BASE_DIR, 'uploads')
 
 # Path to the keywords file
