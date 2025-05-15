@@ -54,7 +54,7 @@ This application can be adapted for any educational domain by modifying the keyw
     ```
 
 3. Set up environment variables:
-   Open the `.env` file and add your API keys and organization identifier:
+   Open the `.env` file in the `config/` folder and add your API keys and organization identifier:
 
     ```sh
     GEMINI_API_KEY=your_api_key
@@ -66,13 +66,27 @@ This application can be adapted for any educational domain by modifying the keyw
 
 ### Running the Application
 
-To start the application, run:
+1. To start the application, run:
 
-```sh
-bash launch.sh
-```
+    ```sh
+    bash launch.sh
+    ```
 
-The script automatically installs the necessary dependencies and opens the user interface in your browser.
+    The script automatically installs the necessary dependencies and opens the user interface in your browser.
+
+2. On the user interface, type or paste the URL of the institution you want to analyze.
+3. From the dropdown menu, select one of the following options: `API Upload` or `Bulk Upload`
+4. Click the “Let’s discover!” button.(Wait for the tool to finish extracting the support services)
+5. - If you selected API Upload:
+     The services are automatically published to the Credential Registry Sandbox via API.
+   - If you selected Bulk Upload:
+     1. Click the `Download CSV` button to download the file named support_services_but.csv
+     2. Click `Publish` then on the top right of the page.
+     3. You will be redirected to the Credential Registry Sandbox login page.
+     4. After logging in:
+    - Choose `Support Services` under  `+ Add New / Bulk Upload` from the menu.
+    - Upload the `support_services_but.csv` file.
+    - Preview the data and click `Save this data to the Publisher` to complete.
 
 ### Adjusting Keywords and Prompts
 
