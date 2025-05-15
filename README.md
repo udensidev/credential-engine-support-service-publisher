@@ -94,7 +94,7 @@ This application can be adapted for any educational domain by modifying the keyw
 ### Adjusting Keywords and Prompts
 
 - Modify `keywords.txt` in the `config/` folder to tailor link filtering.
-- Update the prompt used for Gemini API requests in `src/gemini_query` to refine extraction output.
+- Update the prompt used for Gemini API requests in `src/gemini_query.py` to refine extraction output.
 
 ### Troubleshooting
 
@@ -102,8 +102,8 @@ This application can be adapted for any educational domain by modifying the keyw
 
 ## Project Structure
 * `app.py`: Entry point of the application that initializes the user interface and orchestrates the end-to-end workflow
-* `src/scraper/`: Contains logic for recursive subdomain discovery, link filtering, and HTML content extraction
-* `src/gemini_query/`: Interfaces with the Google Gemini API to transform scraped data into structured CTDL-compliant JSON
-* `src/publish/`: Implements integration with the Credential Engine Registry Assistant API to facilitate data submission and publishing
-* `src/validate/`: Contains logic for validating extracted CTDL data prior to publishing or export, ensuring schema compliance and data quality
-* `src/convert_csv/`: Handles conversion of CTDL JSON output into CSV format for users opting for bulk upload instead of API-based publishing
+* `src/scraper.py`: Contains logic for recursive subdomain discovery, link filtering, and HTML content extraction
+* `src/gemini_query.py`: Interfaces with the Google Gemini API to transform scraped data into structured CTDL-compliant JSON
+* `src/publish.py`: Implements integration with the Credential Engine Registry Assistant API to facilitate data submission and publishing
+* `src/validate.py`: Contains logic for validating extracted CTDL data prior to publishing or export, ensuring schema compliance and data quality
+* `src/convert_csv.py`: Handles conversion of CTDL JSON output into CSV format for users opting for bulk upload instead of API-based publishing
