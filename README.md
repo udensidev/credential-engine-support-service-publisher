@@ -61,9 +61,9 @@ This application can be adapted for any educational domain by modifying the keyw
     CE_API_TOKEN=organization_api_token
     CE_ORGANIZATION_IDENTIFIER=organization_identifier
     ```
-    #### Note
+    ### Warning ⚠️
 
-    Do NOT share your API keys publicly.
+    Do **NOT** share your API keys publicly.
 
 ## Usage Instructions
 
